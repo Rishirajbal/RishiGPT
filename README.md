@@ -3,6 +3,7 @@
 ## Demo
 https://rishigpt.streamlit.app/
 
+
 **RishiGPT** is a generative AI-powered assistant built using Streamlit, LangChain, and Groq. It delivers real-time, context-aware responses through a combination of web search, Retrieval-Augmented Generation (RAG), and memory—designed for developers, researchers, and anyone looking to chat with documents, URLs, or just get smart assistance.
 
 This app isn't just a chatbot—it’s a modular framework to build and evolve AI-native tools. Whether you're pulling insights from a PDF, parsing a website, or running a live search, RishiGPT handles it all.
@@ -99,18 +100,6 @@ The current version focuses on file-RAG, web search, and short-term memory. The 
 * Enable **role-based personas**, allowing users to switch between dev mode, student tutor mode, and researcher mode.
 
 This isn’t just a chatbot—it’s the groundwork for a fully autonomous, pluggable software engineering assistant.
-
----
-
-## Contributing
-
-Have a feature idea? Found a bug? PRs are welcome, and so are issues. Fork the repo, start building, and let’s push AI-native tools forward.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
