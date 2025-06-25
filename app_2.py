@@ -1,7 +1,6 @@
 import streamlit as st
 import os
 import tempfile
-from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -13,11 +12,8 @@ from langchain_groq import ChatGroq
 from langchain.agents import AgentType, load_tools, initialize_agent
 from langchain_core.output_parsers import StrOutputParser
 
-load_dotenv("API_KEYS.env")
-os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
-serp_key = os.getenv("SERPAPI_API_KEY")
-if serp_key:
-    os.environ["SERPAPI_API_KEY"] = serp_key
+os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+os.environ["SERPAPI_API_KEY"] = st.secrets["SERPAPI_API_KEY"]
 
 model = ChatGroq(
     model="meta-llama/llama-4-scout-17b-16e-instruct",
