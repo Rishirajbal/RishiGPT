@@ -1,6 +1,5 @@
 # RishiGPT — AI Chatbot with File-RAG, Web Search, Memory & More
 
-## Demo
 ## https://rishigpt.streamlit.app/
 
 
