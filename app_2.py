@@ -13,13 +13,11 @@ from langchain_groq import ChatGroq
 from langchain.agents import AgentType, load_tools, initialize_agent
 from langchain_core.output_parsers import StrOutputParser
 
-
 load_dotenv("API_KEYS.env")
 os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
-serp_key = os.getenv("SERP_API_KEY")
+serp_key = os.getenv("SERPAPI_API_KEY")
 if serp_key:
-    os.environ["SERP_API_KEY"] = serp_key
-
+    os.environ["SERPAPI_API_KEY"] = serp_key
 
 model = ChatGroq(
     model="meta-llama/llama-4-scout-17b-16e-instruct",
@@ -29,11 +27,9 @@ output_parser = StrOutputParser()
 
 st.title("RishiGPT")
 
-
 use_rag = st.sidebar.checkbox("Enable personalised file Chat")
-use_serp = st.sidebar.checkbox("Enable Web Search ")
+use_serp = st.sidebar.checkbox("Enable Web Search")
 rag_mode = st.sidebar.selectbox("Select your file source:", ["Choose...", "PDF", "Website", "Text"])
-
 
 if "memory" not in st.session_state:
     st.session_state.memory = ConversationBufferMemory(
@@ -43,7 +39,6 @@ if "memory" not in st.session_state:
         k=10
     )
 
-
 if "rag_memory" not in st.session_state:
     st.session_state.rag_memory = ConversationBufferMemory(
         memory_key="chat_history",
@@ -52,18 +47,15 @@ if "rag_memory" not in st.session_state:
         k=10
     )
 
-
 if use_rag:
     st.session_state.pop("memory", None)
     st.session_state.pop("agent", None)
     st.session_state.pop("tools", None)
-
     if st.sidebar.button("Reset RAG Session"):
         for key in ["vector", "db", "loader", "doc", "splitter", "split_docs", "embedd"]:
             st.session_state.pop(key, None)
         st.session_state.rag_memory.clear()
         st.rerun()
-
 
 if not use_rag and use_serp and "agent" not in st.session_state:
     st.session_state.tools = load_tools(["serpapi"], llm=model)
@@ -72,9 +64,8 @@ if not use_rag and use_serp and "agent" not in st.session_state:
         tools=st.session_state.tools,
         agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
         verbose=False,
-        memory=None 
+        memory=None
     )
-
 
 if use_rag:
     if rag_mode == "Website":
@@ -99,7 +90,6 @@ if use_rag:
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
                     tmp_file.write(pdf_file.read())
                     tmp_path = tmp_file.name
-
                 st.session_state.loader = PyPDFLoader(tmp_path)
                 st.session_state.doc = st.session_state.loader.load()
                 st.session_state.splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -116,7 +106,6 @@ if use_rag:
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".txt") as tmp_file:
                     tmp_file.write(txt_file.read())
                     tmp_path = tmp_file.name
-
                 st.session_state.loader = TextLoader(tmp_path)
                 st.session_state.doc = st.session_state.loader.load()
                 st.session_state.splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
@@ -126,12 +115,10 @@ if use_rag:
                 st.session_state.vector = True
             st.success("Text loaded and embedded!")
 
-
 active_memory = st.session_state.rag_memory if use_rag else st.session_state.memory
 for msg in active_memory.chat_memory.messages:
     role = "user" if msg.type == "human" else "assistant"
     st.chat_message(role).markdown(msg.content)
-
 
 user_query = st.chat_input("Ask me anything...")
 if user_query:
@@ -140,12 +127,11 @@ if user_query:
 
     if use_rag and "vector" in st.session_state:
         prompt_template = PromptTemplate.from_template("""
-        You are a helpful, smart,talkative,gen-z and friendly AI Assistant.
+        You are a helpful, smart, talkative, gen-z and friendly AI Assistant.
         Be detailed, accurate, and conversational.
         Context: {context}
         Question: {question}
         """)
-
         retriever = st.session_state.db.as_retriever(search_kwargs={"k": 5})
         chain = ConversationalRetrievalChain.from_llm(
             llm=model,
