@@ -1,7 +1,7 @@
 # RishiGPT — AI Chatbot with File-RAG, Web Search, Memory & More
 
 ## Demo
-https://rishigpt.streamlit.app/
+*https://rishigpt.streamlit.app/
 
 
 **RishiGPT** is a generative AI-powered assistant built using Streamlit, LangChain, and Groq. It delivers real-time, context-aware responses through a combination of web search, Retrieval-Augmented Generation (RAG), and memory—designed for developers, researchers, and anyone looking to chat with documents, URLs, or just get smart assistance.
