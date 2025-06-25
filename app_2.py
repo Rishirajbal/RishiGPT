@@ -22,6 +22,7 @@ model = ChatGroq(
 output_parser = StrOutputParser()
 
 st.title("RishiGPT")
+st.caption("A chatbot which Supports Web Search and File-based focussed chat and also normal chatting,More features (Efficient Memory tracking,Github code repo interactions etc) coming soon!")
 
 use_rag = st.sidebar.checkbox("Enable personalised file Chat")
 use_serp = st.sidebar.checkbox("Enable Web Search")
