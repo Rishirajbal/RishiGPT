@@ -22,9 +22,7 @@ model = ChatGroq(
 output_parser = StrOutputParser()
 
 st.title("RishiGPT")
-st.caption("A versatile AI chatbot that supports live web search, focused file-based Q&A, and natural free-flowing conversation — all in one place. It features efficient memory tracking for context-aware chats, basic multilingual support, and is designed to evolve fast: upcoming features include seamless GitHub repo interactions and more advanced dev tools.
-
-Stay tuned for RishiGPT+ — powered by LangGraph architecture for even more powerful, modular, and intelligent workflows coming soon!")
+st.caption("A versatile AI chatbot that supports live web search, focused file-based Q&A, and natural free-flowing conversation — all in one place. It features efficient memory tracking for context-aware chats, basic multilingual support, and is designed to evolve fast: upcoming features include seamless GitHub repo interactions and more advanced dev tools.Stay tuned for RishiGPT+ — powered by LangGraph architecture for even more powerful, modular, and intelligent workflows coming soon!")
 
 use_rag = st.sidebar.checkbox("Enable personalised file Chat")
 use_serp = st.sidebar.checkbox("Enable Web Search")
