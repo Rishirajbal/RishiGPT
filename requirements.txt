@@ -13,4 +13,5 @@ sentence-transformers
 google-search-results
 requests
 beautifulsoup4
+pypdf
 
