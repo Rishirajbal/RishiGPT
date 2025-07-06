@@ -206,6 +206,6 @@ if user_query:
         <div style="position: relative; padding: 10px;">
             <pre id="ai-response-{uuid.uuid4()}" style="white-space: pre-wrap; margin: 0;">{final_text}</pre>
             <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)" 
-            style="position: absolute; bottom: 5px; right: 5px;">copy</button>
+            style="position: absolute; bottom: 5px; right: 5px;"></button>
         </div>
     """, unsafe_allow_html=True)
