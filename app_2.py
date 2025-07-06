@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import tempfile
 import uuid
+import time
 from git import Repo, GitCommandError
 from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader, TextLoader, GitLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -26,7 +27,7 @@ output_parser = StrOutputParser()
 
 st.title("RishiGPT")
 st.caption(
-    "A versatile AI chatbot that supports live web search, file-based Q&A, and natural conversation in one place. "
+    "A versatile AI chatbot that supports live web search, file-based Q&A, and natural conversation. "
     "Session memory only. All data resets when you close this app."
 )
 
@@ -152,7 +153,16 @@ if use_rag:
 active_memory = st.session_state.rag_memory if use_rag else st.session_state.memory
 for msg in active_memory.chat_memory.messages:
     role = "user" if msg.type == "human" else "assistant"
-    st.chat_message(role).markdown(msg.content)
+    if role == "assistant":
+        st.markdown(f"""
+            <div style="position: relative; padding: 10px;">
+                <pre id="ai-response-{uuid.uuid4()}" style="white-space: pre-wrap; margin: 0;">{msg.content}</pre>
+                <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)" 
+                style="position: absolute; bottom: 5px; right: 5px;">📋</button>
+            </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.chat_message(role).markdown(msg.content)
 
 user_query = st.chat_input("Ask me anything...")
 if user_query:
@@ -186,4 +196,16 @@ if user_query:
         st.session_state.memory.chat_memory.add_user_message(user_query)
         st.session_state.memory.chat_memory.add_ai_message(response_text)
 
-    st.chat_message("assistant").markdown(response_text)
+    message_placeholder = st.empty()
+    final_text = ""
+    for chunk in response_text:
+        final_text += chunk
+        message_placeholder.markdown(final_text + "▌")
+        time.sleep(0.015)
+    message_placeholder.markdown(f"""
+        <div style="position: relative; padding: 10px;">
+            <pre id="ai-response-{uuid.uuid4()}" style="white-space: pre-wrap; margin: 0;">{final_text}</pre>
+            <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)" 
+            style="position: absolute; bottom: 5px; right: 5px;">copy</button>
+        </div>
+    """, unsafe_allow_html=True)
