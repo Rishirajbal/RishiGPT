@@ -6,7 +6,6 @@ langchain-community
 langchain-core
 langchain-groq
 langchain-huggingface
-chromadb
 faiss-cpu
 huggingface-hub
 transformers
@@ -14,4 +13,4 @@ sentence-transformers
 google-search-results
 requests
 beautifulsoup4
-pypdf
+
