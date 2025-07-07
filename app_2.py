@@ -26,10 +26,8 @@ model = ChatGroq(
 output_parser = StrOutputParser()
 
 st.title("RishiGPT")
-st.caption(
-    "A versatile AI chatbot that supports live web search, file-based Q&A, and natural conversation. "
-    "Session memory only. All data resets when you close this app."
-)
+st.caption("A versatile AI chatbot that supports live web search, focused file-based Q&A, and natural free-flowing conversation — all in one place. It features efficient memory tracking for context-aware chats, basic multilingual support, and is designed to evolve fast: upcoming features include seamless GitHub repo interactions and more advanced dev tools.Stay tuned for RishiGPT+ — powered by LangGraph architecture for even more powerful, modular, and intelligent workflows coming soon!")
+
 
 use_rag = st.sidebar.checkbox("Enable personalised file Chat")
 use_serp = st.sidebar.checkbox("Enable Web Search")
@@ -153,16 +151,7 @@ if use_rag:
 active_memory = st.session_state.rag_memory if use_rag else st.session_state.memory
 for msg in active_memory.chat_memory.messages:
     role = "user" if msg.type == "human" else "assistant"
-    if role == "assistant":
-        st.markdown(f"""
-            <div style="position: relative; padding: 10px;">
-                <pre id="ai-response-{uuid.uuid4()}" style="white-space: pre-wrap; margin: 0;">{msg.content}</pre>
-                <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)" 
-                style="position: absolute; bottom: 5px; right: 5px;">📋</button>
-            </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.chat_message(role).markdown(msg.content)
+    st.chat_message(role).markdown(msg.content)
 
 user_query = st.chat_input("Ask me anything...")
 if user_query:
@@ -171,7 +160,7 @@ if user_query:
 
     if use_rag and "vector" in st.session_state:
         prompt_template = PromptTemplate.from_template(
-            "You are a helpful, smart, talkative, gen-z AI Assistant.\nContext: {context}\nQuestion: {question}"
+            "You are a helpful, smart, talkative, gen-z AI Assistant.Be clear,in-depth and u may have to code also so when asked to code always give the whole working code no prototypes\nContext: {context}\nQuestion: {question}"
         )
         retriever = st.session_state.db.as_retriever(search_kwargs={"k": 5})
         chain = ConversationalRetrievalChain.from_llm(
@@ -202,10 +191,4 @@ if user_query:
         final_text += chunk
         message_placeholder.markdown(final_text + "▌")
         time.sleep(0.015)
-    message_placeholder.markdown(f"""
-        <div style="position: relative; padding: 10px;">
-            <pre id="ai-response-{uuid.uuid4()}" style="white-space: pre-wrap; margin: 0;">{final_text}</pre>
-            <button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)" 
-            style="position: absolute; bottom: 5px; right: 5px;"></button>
-        </div>
-    """, unsafe_allow_html=True)
+    message_placeholder.markdown(final_text)
