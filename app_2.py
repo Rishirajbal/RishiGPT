@@ -27,7 +27,7 @@ output_parser = StrOutputParser()
 
 st.title("RishiGPT")
 st.caption("A versatile AI chatbot that supports live web search, focused file-based Q&A, and natural free-flowing conversation — all in one place. It features efficient memory tracking for context-aware chats, basic multilingual support, and is designed to evolve fast: upcoming features include interaction with persistent storage and better API handling .Stay tuned for RishiGPT+ — powered by LangGraph architecture for even more powerful, modular,supports multimodal RAG and intelligent workflows!")
-st.caption(""New feature! now RishiGPT can interact with your Github repos like a pro!!)
+st.caption("New feature! now RishiGPT can interact with your Github repos like a pro!!")
 
 use_rag = st.sidebar.checkbox("Enable personalised file Chat")
 use_serp = st.sidebar.checkbox("Enable Web Search")
