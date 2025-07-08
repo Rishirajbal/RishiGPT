@@ -130,25 +130,56 @@ A dedicated module for persistent storage of user files and URLs. Supports:
 ---
 
 ## Roadmap & Vision
+RishiGPT’s mission is to evolve into a fully autonomous, memory-aware, multi-agent AI development framework that adapts intelligently to diverse workflows and data sources. The next phases will focus on a multi-pronged expansion of its capabilities:
 
-RishiGPT’s mission is to evolve into a fully autonomous, memory-aware, multi-agent AI development framework. The next phases will focus on:
+**LangGraph Orchestration**
+Leverage LangGraph to enable fine-grained workflow control, branching logic, and truly stateful multi-agent tasks that adapt dynamically based on user input, retrieved context, or external triggers.
 
-* **LangGraph Orchestration:** Enable fine-grained workflow control, branching logic, and stateful multi-agent tasks that adapt based on user input, context, or triggers.
-* **RAGAnything:** Expand the Retrieval-Augmented Generation pipeline into a truly *multimodal* knowledge system—supporting not only text, PDFs, and code repositories, but also diverse file types such as:
+**RAGAnything**
+Expand the Retrieval-Augmented Generation pipeline into a truly multimodal knowledge system—supporting not only text files, PDFs, and code repositories, but a wide spectrum of complex, real-world data sources, including:
 
-  * Video transcripts
-  * Spreadsheets and tabular datasets
-  * Markdown wikis and Notion exports
-  * HTML dumps and raw JSON
-  * Audio transcription
-  * Presentation slide decks
-  * Scientific datasets and CSVs
-* **Memory-Aware Chat:** Integrate chunked or graph-based long-term vector memory to preserve conversation context over extended sessions or projects.
-* **End-to-End Code Generation:** Automatically generate functions, classes, or modules based on contextual prompts and retrieved knowledge.
-* **n8n Workflow Connectors:** Trigger external APIs, update databases, or integrate third-party services seamlessly from within a conversation loop.
-* **Role Switching:** Deploy specialized agent personas—developer assistant, student tutor, research analyst—each optimized for domain-specific workflows.
+-Video transcripts
 
-Together, these advancements will make RishiGPT a truly *autonomous RAG-anything engine*—capable of intelligently reasoning over any data source, maintaining state, and integrating into real-world pipelines for software engineering, research, and intelligent automation.
+-Spreadsheets and tabular datasets (CSV, XLSX)
+
+-Markdown wikis and Notion exports
+
+-HTML dumps, raw JSON and XML APIs
+
+-Audio transcription pipelines
+
+-Presentation slide decks (PPTX, Google Slides)
+
+-Scientific datasets, research papers, and domain-specific archives
+
+This “RAGAnything” vision transforms RishiGPT into a universal knowledge interface capable of reasoning over any file type or information source.
+
+**Memory-Aware Chat**
+Integrate chunked or graph-based long-term vector memory. This will preserve relevant conversation context across extended sessions, projects, or research sprints—enabling more coherent, context-rich dialogues over time.
+
+**End-to-End Code Generation**
+Build robust, prompt-driven code generation capabilities: automatically produce functions, classes, or even entire modules grounded in the knowledge retrieved via RAG pipelines. This moves RishiGPT closer to becoming a practical, autonomous coding co-pilot.
+
+**n8n Workflow Connectors**
+Enable direct integration with external APIs, databases, or no-code automation pipelines using n8n. This lets conversations dynamically trigger real-world actions, automate updates, or orchestrate multi-step data flows without leaving the chat.
+
+**Role Switching & Personas**
+Implement role-based agent personas. Users can switch between specialized modes—such as developer assistant, student tutor, research analyst—each optimized for domain-specific reasoning, prompt styles, and tool access.
+
+**Future Expansion: Multimodal Generation & Voice Integration**
+Looking further ahead, RishiGPT aims to break out of purely text-based interactions by introducing:
+
+**Image Generation**: Integration of generative image models (OpenAI DALL·E, Stable Diffusion, or equivalent) for on-demand visual outputs, concept illustrations, and diagram creation directly within the chat loop.
+
+**Voice Features**: Addition of text-to-speech (TTS) and speech-to-text (STT) capabilities to enable fully voice-enabled interaction—bridging the gap between traditional chat and real-time spoken AI assistance.
+
+These advanced multimodal and voice features require significant compute and external API costs. To keep RishiGPT accessible and evolving, these expansions are planned but dependent on available funding and community support.
+
+**How You Can Contribute:**
+If you want to help accelerate the rollout of these capabilities, you’re welcome to provide your own OpenAI API keys (or equivalent) for image or voice tasks. This helps offset infrastructure costs and ensures that advanced features can be delivered at scale for everyone.
+
+Together, these advancements will turn RishiGPT into a truly autonomous, RAG-anything, multimodal AI orchestration engine—capable of intelligently reasoning over any knowledge source, maintaining rich state, generating code, producing visuals, and integrating seamlessly into real-world pipelines for software engineering, research, and intelligent automation.
+
 
 ---
 
