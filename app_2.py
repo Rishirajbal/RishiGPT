@@ -19,8 +19,9 @@ from langchain_core.output_parsers import StrOutputParser
 dotenv.load_dotenv("API_KEYS.env")
 
 
-os.environ["GROQ_API_KEY"] = st.secrets("GROQ_API_KEY")
-os.environ["SERPAPI_API_KEY"] = st.secrets("SERPAPI_API_KEY")
+os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
+os.environ["SERPAPI_API_KEY"] = st.secrets["SERPAPI_API_KEY"]
+
 
 model = ChatGroq(
     model="meta-llama/llama-4-scout-17b-16e-instruct",
