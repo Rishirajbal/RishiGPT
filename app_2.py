@@ -1,8 +1,8 @@
 import streamlit as st
 import os
 import tempfile
-import uuid
 import time
+import dotenv
 from git import Repo, GitCommandError
 from langchain_community.document_loaders import PyPDFLoader, WebBaseLoader, TextLoader, GitLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -16,8 +16,11 @@ from langchain.agents import AgentType, load_tools, initialize_agent
 from langchain_core.output_parsers import StrOutputParser
 
 
-os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
-os.environ["SERPAPI_API_KEY"] = st.secrets["SERPAPI_API_KEY"]
+dotenv.load_dotenv("API_KEYS.env")
+
+
+os.environ["GROQ_API_KEY"] = st.secrets("GROQ_API_KEY", "")
+os.environ["SERPAPI_API_KEY"] = st.secrets("SERPAPI_API_KEY", "")
 
 model = ChatGroq(
     model="meta-llama/llama-4-scout-17b-16e-instruct",
@@ -26,12 +29,32 @@ model = ChatGroq(
 output_parser = StrOutputParser()
 
 st.title("RishiGPT")
-st.caption("A versatile AI chatbot that supports live web search, focused file-based Q&A, and natural free-flowing conversation — all in one place. It features efficient memory tracking for context-aware chats, basic multilingual support, and is designed to evolve fast: upcoming features include interaction with persistent storage and better API handling .Stay tuned for RishiGPT+ — powered by LangGraph architecture for even more powerful,modular,supports multimodal RAG,support for n8n automation and intelligent workflows!")
-st.caption("New feature! now RishiGPT can interact with your Github repos like a pro!!")
+st.caption("A versatile AI chatbot: live web search, file-based Q&A, and free-flow chat.")
+st.caption("New: Interact with GitHub repos!")
 
-use_rag = st.sidebar.checkbox("Enable personalised file Chat")
+use_rag = st.sidebar.checkbox("Enable personalised file chat")
+rag_mode = None
+
+if use_rag:
+    rag_mode = st.sidebar.selectbox(
+        "Select your file source:", ["Choose...", "PDF", "Website", "Text", "Github"]
+    )
+
 use_serp = st.sidebar.checkbox("Enable Web Search")
-rag_mode = st.sidebar.selectbox("Select your file source:", ["Choose...", "PDF", "Website", "Text", "Github"])
+
+st.sidebar.info(
+    "Note: Use **either** personalised file chat **or** web search — not both."
+)
+
+st.sidebar.caption(
+    "[RishiGPT Embedding Station](https://indexdeposit.streamlit.app/): Embed files permanently."
+)
+st.sidebar.caption(
+    "[RishiGPT Chat Station](https://rishigptchat.streamlit.app/): Chat with your Pinecone index."
+)
+st.caption(
+    "My GitHub: [Rishirajbal](https://github.com/Rishirajbal)"
+)
 
 if "memory" not in st.session_state:
     st.session_state.memory = ConversationBufferMemory(
@@ -54,7 +77,8 @@ if use_rag:
     st.session_state.pop("agent", None)
     st.session_state.pop("tools", None)
     if st.sidebar.button("Reset RAG Session"):
-        for key in ["vector", "db", "loader", "doc", "splitter", "split_docs", "embedd", "repo", "repo_path", "repo_url"]:
+        for key in ["vector", "db", "loader", "doc", "splitter",
+                    "split_docs", "embedd", "repo", "repo_path", "repo_url"]:
             st.session_state.pop(key, None)
         st.session_state.rag_memory.clear()
         st.rerun()
@@ -69,7 +93,7 @@ if not use_rag and use_serp and "agent" not in st.session_state:
         memory=None
     )
 
-if use_rag:
+if use_rag and rag_mode:
     if rag_mode == "Github":
         repo_url = st.text_input("Enter the GitHub repository URL (HTTPS only):")
         if repo_url:
@@ -77,7 +101,8 @@ if use_rag:
                 st.session_state.repo_url = repo_url
                 new_repo_folder = tempfile.mkdtemp(prefix="repo_")
                 st.session_state.repo_path = new_repo_folder
-                for key in ["vector", "db", "loader", "doc", "splitter", "split_docs", "embedd", "repo"]:
+                for key in ["vector", "db", "loader", "doc", "splitter",
+                            "split_docs", "embedd", "repo"]:
                     st.session_state.pop(key, None)
                 st.session_state.rag_memory.clear()
                 try:
@@ -90,63 +115,105 @@ if use_rag:
                 st.session_state.repo = Repo(st.session_state.repo_path)
 
             if "vector" not in st.session_state:
-                with st.spinner("Loading and embedding GitHub repository..."):
+                with st.spinner("Loading and embedding GitHub repo..."):
                     branch = st.session_state.repo.head.reference
-                    st.session_state.loader = GitLoader(repo_path=st.session_state.repo_path, branch=branch)
+                    st.session_state.loader = GitLoader(
+                        repo_path=st.session_state.repo_path, branch=branch
+                    )
                     st.session_state.doc = st.session_state.loader.load()
-                    st.session_state.splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-                    st.session_state.split_docs = st.session_state.splitter.split_documents(st.session_state.doc)
+                    st.session_state.splitter = RecursiveCharacterTextSplitter(
+                        chunk_size=1000, chunk_overlap=200
+                    )
+                    st.session_state.split_docs = st.session_state.splitter.split_documents(
+                        st.session_state.doc
+                    )
                     st.session_state.embedd = HuggingFaceEmbeddings()
-                    st.session_state.db = FAISS.from_documents(st.session_state.split_docs, embedding=st.session_state.embedd)
+                    st.session_state.db = FAISS.from_documents(
+                        st.session_state.split_docs, embedding=st.session_state.embedd
+                    )
                     st.session_state.vector = True
-                st.success("GitHub repository loaded and embedded.")
+                st.success("GitHub repo embedded!")
 
     elif rag_mode == "Website":
-        url = st.text_input("Enter the URL (must start with https):")
+        url = st.text_input("Enter HTTPS URL:")
         if url and not url.startswith("https://"):
-            st.warning("Please enter a valid HTTPS URL.")
+            st.warning("Enter valid HTTPS URL.")
         elif url.startswith("https://") and "vector" not in st.session_state:
-            with st.spinner("Website is loading and embedding..."):
+            with st.spinner("Website loading..."):
                 st.session_state.loader = WebBaseLoader(url)
                 st.session_state.doc = st.session_state.loader.load()
-                st.session_state.splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-                st.session_state.split_docs = st.session_state.splitter.split_documents(st.session_state.doc)
+                st.session_state.splitter = RecursiveCharacterTextSplitter(
+                    chunk_size=1000, chunk_overlap=200
+                )
+                st.session_state.split_docs = st.session_state.splitter.split_documents(
+                    st.session_state.doc
+                )
                 st.session_state.embedd = HuggingFaceEmbeddings()
-                st.session_state.db = FAISS.from_documents(st.session_state.split_docs, embedding=st.session_state.embedd)
+                st.session_state.db = FAISS.from_documents(
+                    st.session_state.split_docs, embedding=st.session_state.embedd
+                )
                 st.session_state.vector = True
-            st.success("Website loaded and embedded.")
+            st.success("Website embedded!")
 
     elif rag_mode == "PDF":
-        pdf_file = st.file_uploader("Upload your PDF here", type="pdf")
+        pdf_file = st.file_uploader("Upload PDF", type="pdf")
         if pdf_file and "vector" not in st.session_state:
-            with st.spinner("PDF is loading and embedding..."):
-                with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp_file:
+            with st.spinner("PDF loading..."):
+                with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp_file:
                     tmp_file.write(pdf_file.read())
                     tmp_file.flush()
-                    st.session_state.loader = PyPDFLoader(tmp_file.name)
-                    st.session_state.doc = st.session_state.loader.load()
-                    st.session_state.splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-                    st.session_state.split_docs = st.session_state.splitter.split_documents(st.session_state.doc)
-                    st.session_state.embedd = HuggingFaceEmbeddings()
-                    st.session_state.db = FAISS.from_documents(st.session_state.split_docs, embedding=st.session_state.embedd)
-                    st.session_state.vector = True
-            st.success("PDF loaded and embedded.")
+                    tmp_file_path = tmp_file.name
+
+                st.session_state.loader = PyPDFLoader(tmp_file_path)
+                st.session_state.doc = st.session_state.loader.load()
+                st.session_state.splitter = RecursiveCharacterTextSplitter(
+                    chunk_size=1000, chunk_overlap=200
+                )
+                st.session_state.split_docs = st.session_state.splitter.split_documents(
+                    st.session_state.doc
+                )
+                st.session_state.embedd = HuggingFaceEmbeddings()
+                st.session_state.db = FAISS.from_documents(
+                    st.session_state.split_docs, embedding=st.session_state.embedd
+                )
+                st.session_state.vector = True
+
+                try:
+                    os.unlink(tmp_file_path)
+                except FileNotFoundError:
+                    pass
+
+            st.success("PDF embedded!")
 
     elif rag_mode == "Text":
-        txt_file = st.file_uploader("Upload your text file here", type="txt")
+        txt_file = st.file_uploader("Upload Text File", type="txt")
         if txt_file and "vector" not in st.session_state:
-            with st.spinner("Text file is loading and embedding..."):
-                with tempfile.NamedTemporaryFile(suffix=".txt") as tmp_file:
+            with st.spinner("Text file loading..."):
+                with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as tmp_file:
                     tmp_file.write(txt_file.read())
                     tmp_file.flush()
-                    st.session_state.loader = TextLoader(tmp_file.name)
-                    st.session_state.doc = st.session_state.loader.load()
-                    st.session_state.splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-                    st.session_state.split_docs = st.session_state.splitter.split_documents(st.session_state.doc)
-                    st.session_state.embedd = HuggingFaceEmbeddings()
-                    st.session_state.db = FAISS.from_documents(st.session_state.split_docs, embedding=st.session_state.embedd)
-                    st.session_state.vector = True
-            st.success("Text loaded and embedded.")
+                    tmp_file_path = tmp_file.name
+
+                st.session_state.loader = TextLoader(tmp_file_path)
+                st.session_state.doc = st.session_state.loader.load()
+                st.session_state.splitter = RecursiveCharacterTextSplitter(
+                    chunk_size=1000, chunk_overlap=200
+                )
+                st.session_state.split_docs = st.session_state.splitter.split_documents(
+                    st.session_state.doc
+                )
+                st.session_state.embedd = HuggingFaceEmbeddings()
+                st.session_state.db = FAISS.from_documents(
+                    st.session_state.split_docs, embedding=st.session_state.embedd
+                )
+                st.session_state.vector = True
+
+                try:
+                    os.unlink(tmp_file_path)
+                except FileNotFoundError:
+                    pass
+
+            st.success("Text file embedded!")
 
 active_memory = st.session_state.rag_memory if use_rag else st.session_state.memory
 for msg in active_memory.chat_memory.messages:
@@ -160,7 +227,7 @@ if user_query:
 
     if use_rag and "vector" in st.session_state:
         prompt_template = PromptTemplate.from_template(
-            "You are a helpful, smart, talkative, gen-z AI Assistant.Be clear,in-depth and u may have to code also so when asked to code always give the whole working code no prototypes\nContext: {context}\nQuestion: {question}"
+            "You are a helpful, talkative AI. Be clear, in-depth and give full working code.\nContext: {context}\nQuestion: {question}"
         )
         retriever = st.session_state.db.as_retriever(search_kwargs={"k": 5})
         chain = ConversationalRetrievalChain.from_llm(
