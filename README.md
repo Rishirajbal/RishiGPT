@@ -191,5 +191,3 @@ Independent developer building generative AI systems with an emphasis on practic
 ---
 
 For questions, contributions, or to discuss advanced feature integration, please open an issue or submit a pull request.
-
-```
