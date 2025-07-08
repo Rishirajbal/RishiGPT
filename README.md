@@ -1,3 +1,8 @@
+Absolutely — here’s the **refined `README.md`** with your **future vision** expanded for **LangGraph**, **RAGAnything**, and your goal of building a *truly memory-aware*, *multimodal RAG* that can reason over *crazy file types* — plus the link to **RishiGPT+**. This version keeps the serious, technical tone and just extends the *Roadmap* and *Related Projects* sections properly.
+
+---
+
+````markdown
 # RishiGPT
 
 **RishiGPT** is an AI-native, generative assistant designed to deliver high-quality, context-aware responses through a modular, extensible framework. Built on Streamlit, LangChain, and Groq’s high-performance LLaMA backend, RishiGPT combines web search, Retrieval-Augmented Generation (RAG), and conversation memory to power intelligent workflows for developers, researchers, and anyone working with custom data.
@@ -82,3 +87,83 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+````
+
+---
+
+## Environment Variables
+
+Create a `.streamlit/secrets.toml` (for Streamlit Cloud) or a local `.env` file:
+
+```toml
+GROQ_API_KEY = "your_groq_api_key"
+SERPAPI_API_KEY = "your_serpapi_api_key"
+```
+
+---
+
+## Running the App
+
+```bash
+streamlit run app_2.py
+```
+
+Access the app at `http://localhost:8501` or use your Streamlit Cloud deployment URL.
+
+---
+
+## Related Projects
+
+### [RishiGPT+ (LangGraph Pipeline)](https://github.com/Rishirajbal/RishiGPT_PLUS.git)
+
+RishiGPT+ pushes the boundaries of the current framework using [LangGraph](https://github.com/langchain-ai/langgraph) to introduce dynamic, graph-based orchestration for complex multi-step AI workflows. With LangGraph, future versions of RishiGPT will support advanced capabilities like:
+
+* Multi-branch conversation flow and conditional routing.
+* Sophisticated memory graphing and retention logic.
+* Automatic tool switching for multi-agent workflows.
+* Persistent state tracking across parallel tasks.
+
+### [RishiGPT Persistent Memory (Pinecone)](https://github.com/Rishirajbal/RishiGPT_Pinecone_PersistantMemory_Feature.git)
+
+A dedicated module for persistent storage of user files and URLs. Supports:
+
+* Embedding with Cohere’s `embed-english-light-v3.0` model.
+* Storage and retrieval via Pinecone vector database.
+* Chat interface for querying existing indexes.
+* Enables “embed once, chat forever” workflows.
+
+---
+
+## Roadmap & Vision
+
+RishiGPT’s mission is to evolve into a fully autonomous, memory-aware, multi-agent AI development framework. The next phases will focus on:
+
+* **LangGraph Orchestration:** Enable fine-grained workflow control, branching logic, and stateful multi-agent tasks that adapt based on user input, context, or triggers.
+* **RAGAnything:** Expand the Retrieval-Augmented Generation pipeline into a truly *multimodal* knowledge system—supporting not only text, PDFs, and code repositories, but also diverse file types such as:
+
+  * Video transcripts
+  * Spreadsheets and tabular datasets
+  * Markdown wikis and Notion exports
+  * HTML dumps and raw JSON
+  * Audio transcription
+  * Presentation slide decks
+  * Scientific datasets and CSVs
+* **Memory-Aware Chat:** Integrate chunked or graph-based long-term vector memory to preserve conversation context over extended sessions or projects.
+* **End-to-End Code Generation:** Automatically generate functions, classes, or modules based on contextual prompts and retrieved knowledge.
+* **n8n Workflow Connectors:** Trigger external APIs, update databases, or integrate third-party services seamlessly from within a conversation loop.
+* **Role Switching:** Deploy specialized agent personas—developer assistant, student tutor, research analyst—each optimized for domain-specific workflows.
+
+Together, these advancements will make RishiGPT a truly *autonomous RAG-anything engine*—capable of intelligently reasoning over any data source, maintaining state, and integrating into real-world pipelines for software engineering, research, and intelligent automation.
+
+---
+
+## Author
+
+**Rishiraj Bal**
+Independent developer building generative AI systems with an emphasis on practical LLM applications, advanced RAG pipelines, and full-stack AI deployment.
+
+---
+
+For questions, contributions, or to discuss advanced feature integration, please open an issue or submit a pull request.
+
+```
