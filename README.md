@@ -1,8 +1,3 @@
-Absolutely — here’s the **refined `README.md`** with your **future vision** expanded for **LangGraph**, **RAGAnything**, and your goal of building a *truly memory-aware*, *multimodal RAG* that can reason over *crazy file types* — plus the link to **RishiGPT+**. This version keeps the serious, technical tone and just extends the *Roadmap* and *Related Projects* sections properly.
-
----
-
-````markdown
 # RishiGPT
 
 **RishiGPT** is an AI-native, generative assistant designed to deliver high-quality, context-aware responses through a modular, extensible framework. Built on Streamlit, LangChain, and Groq’s high-performance LLaMA backend, RishiGPT combines web search, Retrieval-Augmented Generation (RAG), and conversation memory to power intelligent workflows for developers, researchers, and anyone working with custom data.
