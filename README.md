@@ -4,6 +4,8 @@
 
 **Live Demo:** [RishiGPT Streamlit App](https://rishigpt.streamlit.app/)
 
+**Blog Post**[RishiGPT](https://dev.to/rishirajbal/rishigpt-building-a-multi-agent-memory-aware-ai-with-streamlit-langchain-pinecone-13fa)
+
 ---
 
 ## Overview
