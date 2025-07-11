@@ -61,7 +61,6 @@ st.sidebar.markdown("[Chat with your Pinecone index.](https://rishigptchat.strea
 
 st.sidebar.button("Cats vs Dogs Classifier", on_click=lambda: st.experimental_set_query_params(url="https://dogsvscats1223.streamlit.app/"))
 st.sidebar.markdown("[ML groundwork for upcoming RishiGPTMedical feature.](https://dogsvscats1223.streamlit.app/)")
-)
 st.caption(
     "My GitHub: [Rishirajbal](https://github.com/Rishirajbal)"
 )
