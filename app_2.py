@@ -43,7 +43,9 @@ st.caption(
 st.caption(
     "Coming soon: RishiGPT+ powered by LangGraph — launching with multimodal RAG, plus future n8n workflow automation."
 )
-
+st.caption(
+    "NOTE-Websearch will renew again from 16th July 2025"
+)
 
 use_rag = st.sidebar.checkbox("Enable personalised file chat")
 rag_mode = None
