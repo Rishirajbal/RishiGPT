@@ -53,15 +53,14 @@ if use_rag:
 
 use_serp = st.sidebar.checkbox("Enable Web Search")
 
-st.sidebar.info(
-    "Note: Use **either** personalised file chat **or** web search — not both."
-)
+st.sidebar.button("RishiGPT Embedding Station", on_click=lambda: st.experimental_set_query_params(url="https://indexdeposit.streamlit.app/"))
+st.sidebar.markdown("[Embed files permanently.](https://indexdeposit.streamlit.app/)")
 
-st.sidebar.caption(
-    "[RishiGPT Embedding Station](https://indexdeposit.streamlit.app/): Embed files permanently."
-)
-st.sidebar.caption(
-    "[RishiGPT Chat Station](https://rishigptchat.streamlit.app/): Chat with your Pinecone index."
+st.sidebar.button("RishiGPT Chat Station", on_click=lambda: st.experimental_set_query_params(url="https://rishigptchat.streamlit.app/"))
+st.sidebar.markdown("[Chat with your Pinecone index.](https://rishigptchat.streamlit.app/)")
+
+st.sidebar.button("Cats vs Dogs Classifier", on_click=lambda: st.experimental_set_query_params(url="https://dogsvscats1223.streamlit.app/"))
+st.sidebar.markdown("[ML groundwork for upcoming RishiGPTMedical feature.](https://dogsvscats1223.streamlit.app/)")
 )
 st.caption(
     "My GitHub: [Rishirajbal](https://github.com/Rishirajbal)"
