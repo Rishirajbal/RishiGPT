@@ -35,7 +35,9 @@ st.caption(
 )
 
 st.caption(
-    "New: Direct GitHub repo interaction and persistent storage — upload once, reuse forever!"
+    "New: 1. Direct GitHub repo interaction\n"
+    "Persistent storage — upload once, reuse forever!\n"
+    "Custom TensorFlow model integration, groundwork for RishiGPT-Medical"
 )
 
 st.caption(
