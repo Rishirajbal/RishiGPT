@@ -34,17 +34,16 @@ st.caption(
     "A versatile AI chatbot for live web search, focused file Q&A, and context-aware conversation — all in one. Tracks chat memory, supports multiple languages and more."
 )
 
+st.link_button("RishiGPT Medical Brain Segmentation API docs",url="https://apidocs.streamlit.app/")
+
 st.caption(
     "New: 1. Direct GitHub repo interaction\n"
     "Persistent storage — upload once, reuse forever!\n"
-    "Custom TensorFlow model integration, groundwork for RishiGPT-Medical"
+    "RishiGPT Medical added! it can now map 2D Brain images for potential tumours"
 )
 
 st.caption(
-    "Coming soon: RishiGPT+ powered by LangGraph — launching with multimodal RAG, plus future n8n workflow automation."
-)
-st.caption(
-    "NOTE-Websearch will renew again from 16th July 2025"
+    "Coming soon: RishiGPT+ powered by LangGraph — launching with multimodal RAG, plus possible future n8n workflow automation."
 )
 
 use_rag = st.sidebar.checkbox("Enable personalised file chat")
