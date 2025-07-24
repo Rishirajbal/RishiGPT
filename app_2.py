@@ -34,13 +34,13 @@ st.caption(
     "A versatile AI chatbot for live web search, focused file Q&A, and context-aware conversation — all in one. Tracks chat memory, supports multiple languages and more."
 )
 
-st.link_button("RishiGPT Medical Brain Segmentation API docs",url="https://apidocs.streamlit.app/")
-
 st.caption(
-    "New: 1. Direct GitHub repo interaction\n"
-    "Persistent storage — upload once, reuse forever!\n"
-    "RishiGPT Medical added! it can now map 2D Brain images for potential tumours"
+    "New: 1. Direct GitHub repo interaction"
 )
+
+st.caption("2.Persistent storage — upload once, reuse forever!")
+st.caption("3.RishiGPT Medical added! it can now map 2D Brain images for potential tumours")
+st.link_button("RishiGPT Medical Brain Segmentation API docs",url="https://apidocs.streamlit.app/")
 
 st.caption(
     "Coming soon: RishiGPT+ powered by LangGraph — launching with multimodal RAG, plus possible future n8n workflow automation."
