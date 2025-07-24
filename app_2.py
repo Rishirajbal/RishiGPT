@@ -67,6 +67,9 @@ st.sidebar.caption("Chat with your Pinecone index.")
 st.sidebar.link_button("Cats vs Dogs Classifier", url="https://dogsvscats1223.streamlit.app/")
 st.sidebar.caption("ML groundwork for upcoming RishiGPTMedical feature.")
 
+st.sidebar.link_button("RishiGPT Medical Brain Segmentation", url="https://huggingface.co/spaces/rishirajbal/RishiGPT_Medical_Brain_Segmentation")
+st.sidebar.caption("UNET++ architecture utilisation for Brain segmentattion for potential Tumours")
+
 st.caption(
     "My GitHub: [Rishirajbal](https://github.com/Rishirajbal)"
 )
