@@ -43,7 +43,7 @@ st.caption("3.RishiGPT Medical added! it can now map 2D Brain images for potenti
 st.link_button("RishiGPT Medical Brain Segmentation API docs",url="https://apidocs.streamlit.app/")
 
 st.caption(
-    "Coming soon: RishiGPT+ powered by LangGraph — launching with multimodal RAG, plus possible future n8n workflow automation."
+    "Coming soon: RishiGPT Research powered by LangGraph and launching of multimodal RAG, plus possible future n8n workflow automation."
 )
 
 use_rag = st.sidebar.checkbox("Enable personalised file chat")
@@ -276,3 +276,4 @@ if user_query:
         message_placeholder.markdown(final_text + "▌")
         time.sleep(0.015)
     message_placeholder.markdown(final_text)
+
