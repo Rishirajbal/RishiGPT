@@ -244,7 +244,7 @@ if user_query:
 
     if use_rag and "vector" in st.session_state:
         prompt_template = PromptTemplate.from_template(
-            "You are a helpful, talkative AI. Be clear, in-depth and give full working code.\nContext: {context}\nQuestion: {question}"
+            "You are a helpful, talkative AI. Be clear, in-depth and if asked give full working code no half baked thing .\nContext: {context}\nQuestion: {question}"
         )
         retriever = st.session_state.db.as_retriever(search_kwargs={"k": 5})
         chain = ConversationalRetrievalChain.from_llm(
@@ -276,4 +276,5 @@ if user_query:
         message_placeholder.markdown(final_text + "▌")
         time.sleep(0.015)
     message_placeholder.markdown(final_text)
+
 
