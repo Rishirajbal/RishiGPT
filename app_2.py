@@ -63,10 +63,6 @@ st.sidebar.caption("Embed files permanently.")
 
 st.sidebar.link_button("RishiGPT Chat Station", url="https://rishigptchat.streamlit.app/")
 st.sidebar.caption("Chat with your Pinecone index.")
-
-st.sidebar.link_button("Cats vs Dogs Classifier", url="https://dogsvscats1223.streamlit.app/")
-st.sidebar.caption("ML groundwork for upcoming RishiGPTMedical feature.")
-
 st.sidebar.link_button("RishiGPT Medical Brain Segmentation", url="https://huggingface.co/spaces/rishirajbal/RishiGPT_Medical_Brain_Segmentation")
 st.sidebar.caption("UNET++ architecture utilisation for Brain segmentattion for potential Tumours")
 st.sidebar.link_button("RishiGPT Research",url="https://researchagent-8jhnuciwx8ymasgkfwhhcm.streamlit.app/")
@@ -280,6 +276,7 @@ if user_query:
         message_placeholder.markdown(final_text + "▌")
         time.sleep(0.015)
     message_placeholder.markdown(final_text)
+
 
 
 
