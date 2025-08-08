@@ -40,6 +40,7 @@ st.caption(
 
 st.caption("2.Persistent storage — upload once, reuse forever!")
 st.caption("3.RishiGPT Medical added! it can now map 2D Brain images for potential tumours")
+st.caption("3.RishiGPT Research added! create research reports now with just a prompt and a click")
 st.link_button("RishiGPT Medical Brain Segmentation API docs",url="https://apidocs.streamlit.app/")
 
 st.caption(
@@ -68,6 +69,9 @@ st.sidebar.caption("ML groundwork for upcoming RishiGPTMedical feature.")
 
 st.sidebar.link_button("RishiGPT Medical Brain Segmentation", url="https://huggingface.co/spaces/rishirajbal/RishiGPT_Medical_Brain_Segmentation")
 st.sidebar.caption("UNET++ architecture utilisation for Brain segmentattion for potential Tumours")
+st.sidebar.link_button("RishiGPT Research",url="https://researchagent-8jhnuciwx8ymasgkfwhhcm.streamlit.app/")
+st.sidebar.caption("Deep research tool for generating reports")
+
 
 st.caption(
     "My GitHub: [Rishirajbal](https://github.com/Rishirajbal)"
@@ -276,5 +280,6 @@ if user_query:
         message_placeholder.markdown(final_text + "▌")
         time.sleep(0.015)
     message_placeholder.markdown(final_text)
+
 
 
